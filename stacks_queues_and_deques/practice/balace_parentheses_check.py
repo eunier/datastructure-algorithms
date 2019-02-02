@@ -1,13 +1,13 @@
 def balance_check(string):
-    # edge check
+    # edge case check
     if len(string) % 2 != 0:
         return False
 
-    opening = set('{[(')
-    match = {
+    opening = set('({[')
+    matches = {
+        ('(', ')'),
         ('{', '}'),
-        ('[', ']'),
-        ('(', ')')
+        ('[', ']')
     }
 
     stack = []
@@ -16,9 +16,9 @@ def balance_check(string):
         if letter in opening:
             stack.append(letter)
         else:
-            last_opening = stack.pop()
+            last_open = stack.pop()
 
-            if (last_opening, letter) not in match:
+            if (last_open, letter) not in matches:
                 return False
 
     return len(stack) == 0
@@ -28,4 +28,3 @@ print(balance_check('{}'))
 print(balance_check('{}{{{{}}}}[][][[[]]][({})]'))
 
 print(balance_check('{{{{}{{{{'))
-
